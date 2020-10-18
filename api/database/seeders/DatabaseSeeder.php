@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\DepartamentSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,11 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-    	\App\Models\User::factory()->create([
-    	  'name'   => 'Admin',
-	      'email'   => 'admin@admin.com',
-	      'password'  => Hash::make('admin123456')
-    	]);
-        \App\Models\User::factory(10)->create();
+        $this->call(
+            [
+                MayorSeeder::class,
+                DepartamentSeeder::class,
+                RolSeeder::class,
+                UserTableSeeder::class,
+                GadgetSeeder::class,
+                PositionSeeder::class,
+                EmployeeSeeder::class,
+                GadgetLogSeeder::class
+            ]
+        );
     }
 }
