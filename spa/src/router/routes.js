@@ -4,6 +4,12 @@ function page (path) {
         m => m.default || m,
         )
 }
+function comp (path) {
+    return () =>
+    import(/* webpackChunkName: '' */ `@/components/${path}`).then(
+        m => m.default || m,
+        )
+}
 
 export default [
 {
@@ -19,7 +25,7 @@ export default [
 {
     path: '/home',
     name: 'home',
-    component: page('Home.vue'),
+    components: { default: page('Home.vue'), header: comp('core/AppBar.vue')},
 },
 
 /* Errors */

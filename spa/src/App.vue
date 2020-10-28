@@ -1,25 +1,31 @@
 <template>
   <v-app>
-
-    <core-app-bar />
-
-    <core-drawer />
-
-    <core-view />
-    
-    <core-footer />
+    <router-view name="header" />
+      <div>
+        <v-overlay :value="overlay">
+          <v-progress-circular
+            indeterminate
+            size="64"
+          />
+        </v-overlay>
+        <router-view />
+      </div>
+    <router-view name="footer" />
   </v-app>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     name: 'App',
-
-    components: {
-      CoreAppBar: () => import('@/components/core/AppBar'),
-      CoreDrawer: () => import('@/components/core/Drawer'),
-      CoreView: () => import('@/components/core/View'),
-      CoreFooter: () => import('@/components/core/Footer'),
+    data () {
+      return{
+      }
+    },
+      computed: {
+      ...mapGetters({
+        overlay: 'overlay',
+      }),
     },
   }
 </script>
