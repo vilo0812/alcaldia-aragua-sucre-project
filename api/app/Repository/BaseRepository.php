@@ -249,6 +249,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function createOrUpdateFromRequest(
+        int $primary = null,
         array $attributesToAddOrReplace = [],
         array $attributesToExcept = [],
         bool $saveMissingModelFillableAttributesToNull = false
@@ -256,8 +257,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
         $this->exceptAttributesFromRequest($attributesToExcept);
         $this->addOrReplaceAttributesInRequest($attributesToAddOrReplace);
-
-        return $this->createOrUpdateFromArray($this->request->all(), $saveMissingModelFillableAttributesToNull);
+        if(!empty($primary)){
+            return $this->updateByPrimary($primary,$this->request->all(), $saveMissingModelFillableAttributesToNull);
+        }else{
+            return $this->createOrUpdateFromArray($this->request->all(), $saveMissingModelFillableAttributesToNull);
+        }
     }
 
     /**
@@ -302,9 +306,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function deleteByPrimary(int $primary)
     {
-        return $this->getModel()->findOrFail($primary)->update([
-            'status' => 0
-        ]);
+        return $this->getModel()->destroy($primary);
     }
 
     /**

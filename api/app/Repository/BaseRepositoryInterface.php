@@ -96,6 +96,7 @@ interface BaseRepositoryInterface
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function createOrUpdateFromRequest(
+        int $primary = null,
         array $attributesToAddOrReplace = [],
         array $attributesToExcept = [],
         bool $saveMissingModelFillableAttributesToNull = true

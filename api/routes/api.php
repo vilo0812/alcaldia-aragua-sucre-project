@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'auth'], function ($router) {
     	Route::post('login', 'Auth\AuthController@login');
 });
+Route::resource('mayors', 'Api\MayorsController');
 Route::group([
     'middleware' => 'jwt.auth',
 ], function ($router) {
