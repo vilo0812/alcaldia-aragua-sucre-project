@@ -21,6 +21,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'rol_id'
     ];
 
     /**
@@ -54,5 +55,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function rol()
+    {
+        return $this->belongsTo('App\Models\Rol');
     }
 }
