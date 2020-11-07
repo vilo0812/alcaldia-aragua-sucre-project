@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Repository\Mayor\MayorRepositoryInterface;
-use Aws\Api\validate;
 use Illuminate\Http\Request;
 class MayorsController extends Controller
 {
