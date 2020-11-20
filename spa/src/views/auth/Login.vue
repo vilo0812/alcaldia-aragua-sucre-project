@@ -27,6 +27,9 @@
 			       			</v-col>
 			       		</v-card>
 			</v-col>
+			<v-col sm="12" md="6" class="d-flex justify-center align-start " height="700">
+       			<img src="./../../assets/img/sucre.jpeg" alt="" width="500"  >
+	       	</v-col>
 		</v-row>
 	</v-col>
 </template>
@@ -66,8 +69,3 @@ export default {
   },
 }
 </script>
-<style>
-	.imagen{
-		background: red;
-	}
-</style>

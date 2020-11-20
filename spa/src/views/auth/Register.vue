@@ -54,7 +54,8 @@ export default {
 
 <style>
 	.imagen{
-		height: 700px;
-		background: red;
+		background: url(./../../assets/img/sucre.jpeg);
+		background-position: center;
+		background-size:cover;
 	}
 </style>
