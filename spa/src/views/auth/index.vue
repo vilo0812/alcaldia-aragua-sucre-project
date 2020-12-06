@@ -35,7 +35,6 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import axios from 'axios'
 export default {
   name: 'Login',
   data () {
@@ -50,10 +49,11 @@ export default {
     async login () {
       this.setOverlay(true)
       try {
-      const resp = await this.$store.dispatch('login', this.form)
-      this.setOverlay(false)
+      await this.$store.dispatch('login', this.form)
       this.$router.push({ name: 'home' })
+      this.setOverlay(false)
       } catch (error) {
+      	console.log(error)
       this.setOverlay(false)
       	this.$swal({
 	        icon: 'error',

@@ -1,12 +1,12 @@
 function page (path) {
     return () =>
-    import(/* webpackChunkName: '' */ `@/views/${path}`).then(
+    import(`@/views/${path}`).then(
         m => m.default || m,
         )
 }
 function comp (path) {
     return () =>
-    import(/* webpackChunkName: '' */ `@/components/${path}`).then(
+    import(`@/components/${path}`).then(
         m => m.default || m,
         )
 }
@@ -14,20 +14,22 @@ function comp (path) {
 export default [
 {
     path: '/',
+    name: 'home',
+    components: { default: page('home'), header: comp('core/AppBar.vue')},
+    meta:{
+      auth: true
+    }
+},
+{
+    path: '/login',
     name: 'auth-login',
-    component: page('auth/Login.vue'),
+    component: page('auth'),
 },
 {
     path: '/register',
     name: 'auth-register',
     component: page('auth/Register.vue'),
 },
-{
-    path: '/home',
-    name: 'home',
-    components: { default: page('Home.vue'), header: comp('core/AppBar.vue')},
-},
-
 /* Errors */
 {
     path: '*',
