@@ -7692,6 +7692,11 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+sweetalert2@10.x:
+  version "10.12.0"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-10.12.0.tgz#7d85b5c986bce52c8930188d7165a8f3430ed5d9"
+  integrity sha512-GFlrfTCszRDqUdXBX4VIDFYsB03tpQY2PmjtmGsRFQCaQ0JcHxECyJb/oLTvZVkoMpBWCPKdx6daRlpTUhitPQ==
+
 sweetalert2@^10.3.5:
   version "10.3.5"
   resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-10.3.5.tgz#e5a10ad789163e85ec6031a413b08b20e5aae0a4"
@@ -8237,6 +8242,13 @@ vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
+
+vue-sweetalert2@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/vue-sweetalert2/-/vue-sweetalert2-4.1.1.tgz#77963821d798bbf95fd4567ccd55e8cc51c78463"
+  integrity sha512-9ytddeXkjixIGzUxgmVAVdIOrbPiWcjEPQuO3mEPq4zc8clbQbhOn192zvYUdcM0SbRPzbafyXTFx9mNMNJzQA==
+  dependencies:
+    sweetalert2 "10.x"
 
 vue-template-compiler@^2.6.11:
   version "2.6.12"
