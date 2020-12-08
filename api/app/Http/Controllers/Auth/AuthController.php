@@ -17,7 +17,6 @@ class AuthController extends Controller
 
      public function login()
     { // funcion para crear el token eh iniciar session
-
         $credentials = request(['email', 'password']);
         $token = JWTAuth::attempt($credentials);
         return !$token ? response()->json(['error' => 'Not Autorization'],400) :

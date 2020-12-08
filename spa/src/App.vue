@@ -1,31 +1,22 @@
 <template>
   <v-app>
+    <overlay/>
     <router-view name="header" />
-      <div>
-        <v-overlay :value="overlay">
-          <v-progress-circular
-            indeterminate
-            size="64"
-          />
-        </v-overlay>
-        <router-view />
-      </div>
+      <router-view />
     <router-view name="footer" />
   </v-app>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+import overlay from '@/components/base/overlay'
   export default {
     name: 'App',
     data () {
       return{
       }
     },
-      computed: {
-      ...mapGetters({
-        overlay: 'overlay',
-      }),
+    components: {
+      overlay,
     },
   }
 </script>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
 import middleware from '@/middleware'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -15,15 +16,14 @@ function createRouter () {
 }
 function searchToken () {
   //search from localstorage or cookie or
-  //whereever it's the token of the app
-  // const token = Cookies.get('token')
-  // if (token) {
-  //   store.commit('SET_TOKEN', { token: token })
-  // }
+  var auth = JSON.parse(localStorage.getItem('auth'))
+  if (auth) {
+    store.commit('SET_USER',auth.user)
+    store.commit('SET_TOKEN',auth.token)
+  }
 }
 
-const router = createRouter()
 searchToken()
+const router = createRouter()
 router.beforeEach(middleware)
-
 export default router

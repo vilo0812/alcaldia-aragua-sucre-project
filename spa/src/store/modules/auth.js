@@ -24,12 +24,17 @@ export default {
       const resp = await axios.post('/api/auth/login', { email, password })
       commit('SET_USER', resp.data.user)
       commit('SET_TOKEN', resp.data.access_token)
+      localStorage.setItem("auth",JSON.stringify({
+        user : resp.data.user,
+        token : resp.data.access_token
+      }));
       return resp
     },
     async logout({state}) {
       const resp = await axios.post('/api/logout')
       state.user = null
       state.token = null
+      localStorage.removeItem("auth");
       return resp
     },
     async fetchUser({ commit }) {

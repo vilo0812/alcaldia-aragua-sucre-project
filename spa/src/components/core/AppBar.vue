@@ -1,59 +1,83 @@
 <template>
   <div>
     <v-app-bar
-      color="deep-purple accent-4"
-      dense
-      dark
-    >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
-      <v-toolbar-title>Page title</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-menu
-        left
-        bottom
+        color="deep-purple accent-4"
+        dense
+        dark
       >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-btn>
-        </template>
+        <v-toolbar-title>Vuetify</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-menu
+          left
+          bottom
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+            text
+              v-bind="attrs"
+              v-on="on"
+            >
+              Modules
+            </v-btn>
+          </template>
 
-        <v-list>
-          <v-list-item
-            v-for="n in 5"
-            :key="n"
-            @click="() => {}"
-          >
-            <v-list-item-title>Option {{ n }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </v-app-bar>
-  </div>
+          <v-list>
+            <v-list-item
+              v-for="n in 5"
+              :key="n"
+              @click="() => {}"
+            >
+              <v-list-item-title>Option {{ n }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <v-btn text @click="logout">
+          Cerrar Sesión
+        </v-btn>
+      </v-app-bar>
+    </div>
 </template>
+
 <script>
-  // import { mapGetters } from 'vuex'
-  export default {
-    name: 'CoreBar',
-    computed: {
-      // ...mapGetters({
-      //   overlay: 'config/overlay',
-      // }),
+import { mapActions } from 'vuex'
+export default {
+
+  name: 'AppBar',
+
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    async logout () {
+      this.setOverlay(true)
+      try{
+        const resp = await this.$store.dispatch('logout')
+        console.log(resp)
+        this.$router.push({ name: 'auth-login' })
+        this.setOverlay(false)
+      }catch (error) {
+      this.setOverlay(false)
+      console.log(error)
+      }
     },
+    async fetchUser () {
+      this.setOverlay(true)
+      try{
+        await this.$store.dispatch('fetchUser')
+        this.setOverlay(false)
+      }catch (error) {
+      this.setOverlay(false)
+      console.log(error)
+      }
+    },
+    ...mapActions({
+      setOverlay: 'setOverlay'
+    })
   }
+}
 </script>
+
+<style lang="css" scoped>
+</style>
