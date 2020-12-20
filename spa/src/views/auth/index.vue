@@ -34,6 +34,7 @@
 	</v-col>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 export default {
   name: 'Login',
@@ -67,5 +68,13 @@ export default {
       setOverlay: 'setOverlay'
     })
   },
+  computed: {
+		...mapGetters({
+		token: 'token',
+		user: 'user',
+		check: 'check',
+		role: 'role',
+		}),
+	},
 }
 </script>

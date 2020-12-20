@@ -21,6 +21,30 @@ export default [
     }
 },
 {
+    path: '/mayors',
+    name: 'mayors',
+    components: { default: page('mayors'), header: comp('core/AppBar.vue')},
+    meta:{
+      auth: true
+    }
+},
+{
+    path: '/departaments',
+    name: 'departaments',
+    components: { default: page('departaments'), header: comp('core/AppBar.vue')},
+    meta:{
+      auth: true
+    }
+},
+{
+    path: '/padgets',
+    name: 'padgets',
+    components: { default: page('padgets'), header: comp('core/AppBar.vue')},
+    meta:{
+      auth: true
+    }
+},
+{
     path: '/login',
     name: 'auth-login',
     component: page('auth'),

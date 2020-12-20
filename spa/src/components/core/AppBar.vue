@@ -5,7 +5,7 @@
         dense
         dark
       >
-        <v-toolbar-title>Vuetify</v-toolbar-title>
+        <v-toolbar-title>Alcaldia</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-menu
           left
@@ -17,17 +17,19 @@
               v-bind="attrs"
               v-on="on"
             >
-              Modules
+              Modulos
             </v-btn>
           </template>
-
           <v-list>
             <v-list-item
-              v-for="n in 5"
-              :key="n"
+              v-for= "(item,index) in modules"
+              :key="index"
               @click="() => {}"
+              :to="{ path: item.path }"
             >
-              <v-list-item-title>Option {{ n }}</v-list-item-title>
+              <v-list-item-title>
+                {{item.name}}
+              </v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -46,7 +48,11 @@ export default {
 
   data () {
     return {
-
+      modules : [
+      {name : 'alcaldia', path:'mayors'},
+      {name : 'departamentos', path:'departaments'},
+      {name : 'equipos', path:'padgets'}
+      ]
     }
   },
   methods: {
