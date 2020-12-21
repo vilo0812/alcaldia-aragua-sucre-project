@@ -63,7 +63,7 @@ export default {
     }),
   	changeModalState() {
       this.mayor = ''
-      this.$emit('close')
+      this.$event('close')
     },
     validate () {
       this.$refs.form.validate()
@@ -80,7 +80,8 @@ export default {
             title: '¡Exito!',
             confirmButtonColor: '#3085d6',
           })
-        this.changeModalState()
+        this.mayor = ''
+        this.$event('close')
         this.setOverlay(false)
       } catch (error) {
           console.log(error)
@@ -89,7 +90,7 @@ export default {
             title: '¡Error con los registros!',
             confirmButtonColor: '#3085d6',
           })
-          this.changeModalState()
+          this.$event('close')
           this.setOverlay(false)
       }
     },

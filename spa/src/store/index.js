@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import config from './modules/config'
 import auth from './modules/auth'
 import mayors from './modules/mayors'
+import departaments from './modules/departaments'
+// import padgets from './modules/padgets'
 
 Vue.use(Vuex)
 
@@ -27,6 +29,7 @@ export default new Vuex.Store({
   modules: {
   	config,
   	auth,
-  	mayors
+  	mayors,
+    departaments
   }
 })

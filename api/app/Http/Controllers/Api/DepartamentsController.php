@@ -2,12 +2,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DepartamentResource;
 use App\Repository\Departament\DepartamentRepositoryInterface;
 use Illuminate\Http\Request;
 
 class DepartamentsController extends Controller
 {
     private $repository;
+    private $resource = DepartamentResource::class;
     public function __construct(DepartamentRepositoryInterface $repository)
     {
         $this->repository = $repository;
@@ -15,7 +17,7 @@ class DepartamentsController extends Controller
     public function index()
     {
         $departaments = $this->repository->getAll();
-        return $departaments;
+        return $this->resource::collection($departaments);
     }
     public function store(Request $request)
     {
@@ -25,7 +27,7 @@ class DepartamentsController extends Controller
             'name.required' => 'El campo departamento es obligatorio',
         ]);
         $departament = $this->repository->createOrUpdateFromRequest();
-        return response()->json(['message' => 'Departamento creado exitosamente', 'data' => $departament], 200);
+        return response()->json(['message' => 'Departamento creado exitosamente', 'data' => new $this->resource($departament)], 200);
     }
     public function update(Request $request, int $id)
     {
@@ -35,12 +37,12 @@ class DepartamentsController extends Controller
             'name.required' => 'El campo departamento es obligatorio',
         ]);
         $departament = $this->repository->createOrUpdateFromRequest($id);
-        return response()->json(['message' => 'Departamento actualizado correctamente', 'data' => $departament], 200);
+        return response()->json(['message' => 'Departamento actualizado correctamente', 'data' => new $this->resource($departament)], 200);
     }
     public function show($id)
     {
        $departament = $this->repository->findOneByPrimary($id);
-        return response()->json($departament);
+        return response()->json(new $this->resource($departament));
     }
     public function destroy($id)
     {

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MayorResource;
 use App\Repository\Mayor\MayorRepositoryInterface;
 use Illuminate\Http\Request;
 class MayorsController extends Controller
 {
     private $repository;
+    private $resource = MayorResource::class;
     public function __construct(MayorRepositoryInterface $repository)
     {
         $this->repository = $repository;
@@ -15,7 +17,7 @@ class MayorsController extends Controller
     public function index()
     {
         $mayors = $this->repository->getAll();
-        return $mayors;
+        return $this->resource::collection($mayors);
     }
     public function store(Request $request)
     {
@@ -25,7 +27,7 @@ class MayorsController extends Controller
             'name.required' => 'El campo alcaldia es obligatorio',
         ]);
         $mayor = $this->repository->createOrUpdateFromRequest();
-        return response()->json(['message' => 'Alcaldia creada exitosamente', 'data' => $mayor], 200);
+        return response()->json(['message' => 'Alcaldia creada exitosamente', 'data' => new $this->resource($mayor)], 200);
     }
     public function update(Request $request, int $id)
     {
@@ -34,13 +36,13 @@ class MayorsController extends Controller
         ],[
             'name.required' => 'El campo alcaldia es obligatorio',
         ]);
-        $mayors = $this->repository->createOrUpdateFromRequest($id);
-        return response()->json(['message' => 'Alcaldia actualizado correctamente', 'data' => $mayors], 200);
+        $mayor = $this->repository->createOrUpdateFromRequest($id);
+        return response()->json(['message' => 'Alcaldia actualizado correctamente', 'data' => new $this->resource($mayor)], 200);
     }
     public function show($id)
     {
        $mayor = $this->repository->findOneByPrimary($id);
-        return response()->json($mayor);
+        return response()->json(new $this->resource($mayor));
     }
     public function destroy($id)
     {

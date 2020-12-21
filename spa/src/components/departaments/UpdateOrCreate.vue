@@ -1,7 +1,7 @@
 <template>
 	<Modal>
         <template slot="header">
-          <h4>{{action}} Alcaldia</h4>
+          <h4>{{action}} Departamento</h4>
         </template>
   
         <template slot="body">
@@ -11,19 +11,19 @@
             lazy-validation
           >
             <v-text-field
-              v-model="mayor"
+              v-model="departament"
               :counter="30"
-              :rules="mayorRules"
-              label="Alcaldia"
+              :rules="departamentRules"
+              label="Departamento"
               required
-              :value="getMayor"
+              :value="getDepartament"
             ></v-text-field>
           </v-form>
         </template>
   
         <template slot="footer">
           <v-btn color="error" @click="changeModalState()">Cancelar</v-btn>
-          <v-btn  :class="action == 'Actualizar' ? 'warning' : 'primary'" @click="updateOrCreateMayor()">{{ action }}</v-btn>
+          <v-btn  :class="action == 'Actualizar' ? 'warning' : 'primary'" @click="updateOrCreateDepartament()">{{ action }}</v-btn>
         </template>
     </Modal>
 </template>
@@ -36,8 +36,8 @@ export default {
 
   },
   computed: {
-    getMayor() {
-      return this.mayor = this.data != null ? this.data.name : ''
+    getDepartament() {
+      return this.departament = this.data != null ? this.data.name : ''
     },
     ...mapGetters({
       mayors: 'mayors',
@@ -49,32 +49,33 @@ export default {
   data () {
     return {
       valid: true,
-      mayor: '',
-      mayorRules: [
-        v => !!v || 'Alcaldia es requerida',
-        v => (v && v.length <= 30) || 'deben ser menos de 10 caracteres',
+      mayor_id:1,
+      departament: '',
+      departamentRules: [
+        v => !!v || 'Departament es requerida',
+        v => (v && v.length <= 30) || 'deben ser menos de 30 caracteres',
       ],
     }
   },
   methods: {
     ...mapActions({
-      updateOrCreate: 'updateOrCreateMayors',
+      updateOrCreate: 'updateOrCreateDepartaments',
       setOverlay: 'setOverlay'
     }),
   	changeModalState() {
-      this.mayor = ''
+      this.departament = ''
       this.$emit('close')
     },
     validate () {
       this.$refs.form.validate()
     },
-    async updateOrCreateMayor() {
+    async updateOrCreateDepartament() {
       this.setOverlay(true)
       this.validate()
-      const { mayor } = this
+      const { departament,mayor_id } = this
       const id = this.data != null ? this.data.id : ''
       try {
-        const resp = await this.updateOrCreate({ mayor, id })
+        const resp = await this.updateOrCreate({ departament, mayor_id,  id })
         this.$swal({
             icon: 'success',
             title: '¡Exito!',

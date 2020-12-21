@@ -9,7 +9,7 @@ class Departament extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','mayor_id'];
 
       public function gadgets()
     {

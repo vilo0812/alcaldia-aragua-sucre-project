@@ -29,7 +29,7 @@
       </v-col>
     </v-row>
     <!--   Modal Update Or Create Alcaldia -->
-    <UpdateOrCreate :action="action" :data="mayor" :close="close"/>
+    <UpdateOrCreate :action="action" :data="mayor" @close="close"/>
     <!--   Modal Delete Alcaldia -->
     <DeleteModal :data="mayor" module-name="Alcaldia" action-delete-name="deleteMayor"/>
   </div>
