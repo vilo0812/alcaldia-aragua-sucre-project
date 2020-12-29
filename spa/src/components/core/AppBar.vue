@@ -51,7 +51,7 @@ export default {
       modules : [
       {name : 'alcaldia', path:'mayors'},
       {name : 'departamentos', path:'departaments'},
-      {name : 'equipos', path:'padgets'}
+      {name : 'equipos', path:'gadgets'}
       ]
     }
   },

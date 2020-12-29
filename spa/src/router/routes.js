@@ -37,9 +37,9 @@ export default [
     }
 },
 {
-    path: '/padgets',
-    name: 'padgets',
-    components: { default: page('padgets'), header: comp('core/AppBar.vue')},
+    path: '/gadgets',
+    name: 'gadgets',
+    components: { default: page('gadgets'), header: comp('core/AppBar.vue')},
     meta:{
       auth: true
     }

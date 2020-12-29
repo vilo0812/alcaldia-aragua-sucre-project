@@ -1,10 +1,19 @@
 <template>
-    <v-simple-table>
+    <v-simple-table >
       <template v-slot:default>
         <thead>
           <tr>
             <th class="text-left w-50">
               Name
+            </th>
+            <th class="text-left w-50">
+              Codigo
+            </th>
+            <th class="text-left w-50">
+              Departamento
+            </th>
+            <th class="text-left w-50">
+              estatus
             </th>
             <th class="text-right">
               Editar
@@ -16,10 +25,13 @@
         </thead>
         <tbody>
           <tr
-            v-for="item in mayors"
+            v-for="item in gadgets"
             :key="item.id"
           >
             <td>{{ item.name }}</td>
+            <td>{{ item.code }}</td>
+            <td>{{ item.departament_id.name }}</td>
+            <td>{{ item.status}}</td>
             <td class="text-right"> 
                 <v-btn
                   depressed
@@ -45,6 +57,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
   import { mapGetters,mapActions } from 'vuex'
   export default {
     name: 'Simpletable',
@@ -52,26 +65,26 @@
     }),
     computed: {
       ...mapGetters({
-        mayors: 'mayors',
+        gadgets: 'gadgets',
       }),
     },
     methods:{
       ...mapActions({
-        getMayors: 'getMayors',
+        getGadgets: 'getGadgets',
         setOverlay: 'setOverlay'
       }),
-      editing: function(mayor) {
-        this.$emit("editing",mayor);
+      editing: function(gadget) {
+        this.$emit("editing",gadget);
       },
-      deleting: function(mayor) {
-        this.$emit("deleting",mayor);
+      deleting: function(gadget) {
+        this.$emit("deleting",gadget);
       },
     },
     async created() {
 
       this.setOverlay(true)
       try {
-      await this.getMayors()
+      await this.getGadgets()
       this.setOverlay(false)
       } catch (error) {
         console.log(error)
@@ -87,5 +100,8 @@
 </script>
 
 <style>
-
+.ancho{
+  width: 100%;
+  background-color: black;
+}
 </style>

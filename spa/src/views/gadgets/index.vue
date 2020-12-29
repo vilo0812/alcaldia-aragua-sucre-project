@@ -13,14 +13,14 @@
           color="deep-purple accent-4"
         >
           <v-card-title>
-            Departamentos
+            Equipos
             <v-spacer />
             <v-btn  
               color="primary" 
               large
               @click="changeModalState(true, 'Crear')"
             >
-              Agregar Departamento
+              Agregar Equipo
             </v-btn>
           </v-card-title>
           <Simpletable  @editing="editing" @deleting="deleting"/>
@@ -28,22 +28,22 @@
       </v-col>
     </v-row>
     <!--   Modal Update Or Create Alcaldia -->
-    <UpdateOrCreate :action="action" :data="departament" @close="close"/>
+    <UpdateOrCreate :action="action" :data="gadget" @close="close"/>
     <!--   Modal Delete Alcaldia -->
-    <DeleteModal :data="departament" module-name="Departamento" action-delete-name="deleteDepartament"/>
+    <DeleteModal :data="gadget" module-name="Equipo" action-delete-name="deleteGadget"/>
   </div>
 </template>
 
 <script>
-  import Simpletable from '@/components/departaments/Simpletable.vue'
-  import UpdateOrCreate from '@/components/departaments/UpdateOrCreate.vue'
+  import Simpletable from '@/components/gadgets/Simpletable.vue'
+  import UpdateOrCreate from '@/components/gadgets/UpdateOrCreate.vue'
   import DeleteModal from '@/components/base/modals/DeleteModal.vue'
   export default {
-    name: 'Departaments',
+    name: 'Gadgets',
     data () {
       return {
         action : '',
-        departament: null
+        gadget: null
       }
     },
     components: {
@@ -53,20 +53,20 @@
     },
     methods: {
       changeModalState(state, action = null) {
-        this.departament = null
+        this.gadget = null
         this.action = action
         this.$store.commit('CHANGE_MODAL_STATE', state)
       },
-      editing(departament){
+      editing(gadget){
         this.changeModalState(true, 'Editar')
-        this.departament = departament
+        this.gadget = gadget
       },
-      deleting(departament){
-        this.departament = departament
+      deleting(gadget){
+        this.gadget = gadget
         this.$store.commit('CHANGE_MODAL_DELETE_STATE', true)
       },
       close(){
-        this.departament = null
+        this.gadget = null
         this.action = null
         this.$store.commit('CHANGE_MODAL_STATE', false)
       },

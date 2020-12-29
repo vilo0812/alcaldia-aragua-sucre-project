@@ -73,15 +73,9 @@
       },
     },
     async created() {
-
       this.setOverlay(true)
       try {
       await this.getDepartaments()
-      // this.departaments.forEach(
-      //   async (item) => {
-      //   const resp = (await axios.get(`/api/mayors/${item.mayor_id}`)).data
-      //   item.mayor_id = resp
-      // });
       this.setOverlay(false)
       } catch (error) {
         console.log(error)

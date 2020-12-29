@@ -1,7 +1,7 @@
 <template>
 	<Modal>
         <template slot="header">
-          <h4>{{action}} Departamento</h4>
+          <h4>{{action}} Equipo</h4>
         </template>
   
         <template slot="body">
@@ -11,28 +11,36 @@
             lazy-validation
           >
             <v-text-field
-              v-model="departament"
+              v-model="gadget"
               :counter="30"
-              :rules="departamentRules"
-              label="Departamento"
+              :rules="gadgetRules"
+              label="equipo"
               required
-              :value="getDepartament"
+              :value="getGadget"
             ></v-text-field>
             <v-select
-              :items="mayors"
-              label="Alcaldia"
+              :items="departaments"
+              label="Departamento"
               item-text="name"
               item-value="id"
-              :rules="mayorRules"
-              :value="getMayor"
-              v-model="mayor_id"
+              :rules="departamentsRules"
+              :value="getDepartament"
+              v-model="departament_id"
             ></v-select>
+            <v-text-field
+              v-model="code"
+              :counter="10"
+              :rules="codeRules"
+              label="Codigo"
+              required
+              :value="getCode"
+            ></v-text-field>
           </v-form>
         </template>
   
         <template slot="footer">
           <v-btn color="error" @click="changeModalState()">Cancelar</v-btn>
-          <v-btn  :class="action == 'Actualizar' ? 'warning' : 'primary'" @click="updateOrCreateDepartament()">{{ action }}</v-btn>
+          <v-btn  :class="action == 'Actualizar' ? 'warning' : 'primary'" @click="updateOrCreateGadget()">{{ action }}</v-btn>
         </template>
     </Modal>
 </template>
@@ -41,20 +49,19 @@ import { mapActions, mapGetters } from 'vuex'
 import Modal from '@/components/base/modals'
 export default {
   name: 'UpdateOrCreate',
-  created() {
-
-  },
   computed: {
-    getDepartament() {
-      return this.departament = this.data != null ? this.data.name : ''
+    getGadget() {
+      return this.gadget = this.data != null ? this.data.name : ''
     },
-    getMayor() {
-      return this.mayor_id = this.data != null ? this.data.mayor_id.id  : ''
+    getCode() {
+      return this.code = this.data != null ? this.data.code : ''
+    },
+    getDepartament() {
+      return this.departament_id = this.data != null ? this.data.departament_id.id : ''
     },
     ...mapGetters({
-      mayors: 'mayors',
-    }),
-
+        departaments: 'departaments',
+      }),
   },
 	components: {
       Modal
@@ -62,37 +69,42 @@ export default {
   data () {
     return {
       valid: true,
-      mayor_id:null,
-      departament: '',
-      departamentRules: [
-        v => !!v || 'Departament es requerida',
+      gadget: '',
+      gadgetRules: [
+        v => !!v || 'equipo es requerido',
         v => (v && v.length <= 30) || 'deben ser menos de 30 caracteres',
       ],
-      mayorRules: [
-        v => !!v || 'Alcaldia es requerida',
+      code: '',
+      codeRules: [
+        v => !!v || 'codigo es requerido',
+        v => (v && v.length <= 10) || 'deben ser menos de 10 caracteres',
+      ],
+      departament_id:null,
+      departamentsRules:[
+        v => !!v || 'departamento es requerido',
       ],
     }
   },
   methods: {
     ...mapActions({
-      updateOrCreate: 'updateOrCreateDepartaments',
-      getMayors: 'getMayors',
+      updateOrCreate: 'updateOrCreateGadgets',
+      getDepartaments: 'getDepartaments',
       setOverlay: 'setOverlay'
     }),
   	changeModalState() {
-      this.departament = ''
+      this.gadget = ''
       this.$emit('close')
     },
     validate () {
       this.$refs.form.validate()
     },
-    async updateOrCreateDepartament() {
+    async updateOrCreateGadget() {
       this.setOverlay(true)
       this.validate()
-      const { departament,mayor_id } = this
+      const { gadget, departament_id, code } = this
       const id = this.data != null ? this.data.id : ''
       try {
-        const resp = await this.updateOrCreate({ departament, mayor_id,  id })
+        const resp = await this.updateOrCreate({ gadget, code, departament_id,  id })
         this.$swal({
             icon: 'success',
             title: '¡Exito!',
@@ -119,7 +131,7 @@ export default {
   async created() {
       this.setOverlay(true)
       try {
-      await this.getMayors()
+      await this.getDepartaments()
       this.setOverlay(false)
       } catch (error) {
         console.log(error)

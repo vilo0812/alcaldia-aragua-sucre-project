@@ -28,7 +28,8 @@ class GadgetFactory extends Factory
             'name' => $this->faker->jobTitle,
             'code' => Str::random(6),
             'status' => $this->faker->randomElement([true,false]),
-            'departament_id' => Departament::all()->random()->id
+            // 'departament_id' => Departament::all()->random()->id
+            'departament_id' => 1
 
         ];
     }

@@ -7,7 +7,6 @@
       <v-col
       cols="12"
       sm="9"
-      md="5"
       >
         <v-card 
           class="elevation-2"

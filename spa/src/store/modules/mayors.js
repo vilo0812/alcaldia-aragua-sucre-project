@@ -27,7 +27,6 @@ export default {
       const resp = (
         await axios.get(`/api/mayors`)
       ).data
-      console.log(resp.data)
       commit('SET_MAYORS', resp.data)
       return resp.data
     },
