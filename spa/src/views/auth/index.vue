@@ -5,12 +5,18 @@
 			       		<v-card height="600" class="grey lighten-4 d-flex justify-center align-center" >
 			       			<v-col class="mx-7">
 			       				<h1 class="text-center mb-5 font-weight-black">Iniciar Sesión</h1>
+			       				<v-form
+						            ref="form"
+						            v-model="valid"
+						            lazy-validation
+						          >
 								<v-text-field
 								class="mb-5 "
 								type="email"
-								append-icon="mdi-account"
+								append-icon="mdi-email"
 								label="Correo: "
 								v-model="form.email"
+								:rules="emailRules"
 								></v-text-field>
 								<v-text-field
 								class="mb-5 "
@@ -18,12 +24,14 @@
 								append-icon="mdi-lock-open"
 								required
 								label="Contraseña: "
-								v-model="form.password"
+								v-model="form.password"								
+								:rules="passwordRules"
 								></v-text-field>
 								<v-btn block text small color="primary" class="my-5" :to="{ name: 'auth-register'}">registrar
-									<v-icon small class="mx-2">mdi-key-change</v-icon>
+									<v-icon small class="mx-2">mdi-account-plus</v-icon>
 								</v-btn>
 								<v-btn block color="primary" class="mr-4 block pb-3" @click.stop="login">iniciar sesión</v-btn>
+							</v-form>
 			       			</v-col>
 			       		</v-card>
 			</v-col>
@@ -40,14 +48,25 @@ export default {
   name: 'Login',
   data () {
     return {
+    	valid: true,
     	form: {
 	        email: '',
 	        password: ''
-	      }
+	      },
+	   	emailRules:[
+	        v => !!v || 'correo electronico es requerido',
+	      ],
+	   	passwordRules:[
+	        v => !!v || 'contraseña es requerida',
+	      ],
     }
   },
   methods: {
+  	 validate () {
+      this.$refs.form.validate()
+    },
     async login () {
+      this.validate()
       this.setOverlay(true)
       try {
       await this.$store.dispatch('login', this.form)
@@ -58,8 +77,8 @@ export default {
       this.setOverlay(false)
       	this.$swal({
 	        icon: 'error',
-	        title: '¡Disculpe!',
-	        text: error,
+	        title: '¡Error!',
+	        text: "usuario o contraseña equivocados",
 	        confirmButtonColor: '#3085d6',
 	      })
       }

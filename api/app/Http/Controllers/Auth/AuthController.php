@@ -3,18 +3,29 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Repository\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
+use App\Http\Requests\RegisterUserRequest;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 class AuthController extends Controller
 {
-	public function __construct()
+	public function __construct(UserRepositoryInterface $repository)
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->repository = $repository;
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
-
+    public function register(RegisterUserRequest $request){
+        $user = $this->repository->createOrUpdateFromRequest();
+        return response()->json(
+            [
+        'message' => 'Usuario creado correctamente',
+        'data' => new UserResource($user)
+        ], 201);
+    }
      public function login()
     { // funcion para crear el token eh iniciar session
         $credentials = request(['email', 'password']);

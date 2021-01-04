@@ -22,6 +22,13 @@
             >
               Agregar Equipo
             </v-btn>
+            <v-btn  
+              color="success" 
+              large
+              @click="viewPFD"
+            >
+              Registros PDF
+            </v-btn>
           </v-card-title>
           <Simpletable  @editing="editing" @deleting="deleting"/>
         </v-card>
@@ -70,6 +77,15 @@
         this.action = null
         this.$store.commit('CHANGE_MODAL_STATE', false)
       },
+      viewPFD(){
+        let location
+        if (process.env.NODE_ENV === 'production' && process.env.VUE_APP_API_URL) {
+          location = `${process.env.VUE_APP_API_URL}/gadgetPDF`
+        } else {
+          location = `${process.env.VUE_APP_BASE_URL}/gadgetPDF`
+        }
+        window.location = location
+      }
     }
   }
 </script>

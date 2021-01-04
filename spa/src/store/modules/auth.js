@@ -30,6 +30,10 @@ export default {
       }));
       return resp
     },
+    async register({ commit }, { name, email, password, password_confirmation, rol_id = 2 }) {
+      const resp = await axios.post('/api/auth/register', { email, password, name, rol_id, password_confirmation })
+      return resp
+    },
     async logout({state}) {
       const resp = await axios.post('/api/logout')
       state.user = null

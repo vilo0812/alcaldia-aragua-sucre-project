@@ -31,7 +31,7 @@
             <td>{{ item.name }}</td>
             <td>{{ item.code }}</td>
             <td>{{ item.departament_id.name }}</td>
-            <td>{{ item.status}}</td>
+            <td>{{ inc(item.status)}}</td>
             <td class="text-right"> 
                 <v-btn
                   depressed
@@ -67,8 +67,12 @@
       ...mapGetters({
         gadgets: 'gadgets',
       }),
+      
     },
     methods:{
+      inc(status) {
+        return status == 1 ? 'incorporado' : 'desincorporado';
+      },
       ...mapActions({
         getGadgets: 'getGadgets',
         setOverlay: 'setOverlay'

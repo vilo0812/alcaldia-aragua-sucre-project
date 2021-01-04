@@ -33,7 +33,7 @@ export default {
       commit('SET_GADGETS', resp.data)
       return resp
     },
-    async updateOrCreateGadgets({ commit }, { gadget, code, departament_id, status = 1, id }) {
+    async updateOrCreateGadgets({ commit }, { gadget, code, departament_id, status = 1, user, id }) {
       console.log({ 
           name : gadget,
           status : status,
@@ -42,6 +42,7 @@ export default {
        })
       if (!id) {
         const resp = (await axios.post('/api/gadgets',{ 
+          user_id : user.id,
           name : gadget,
           status : status,
           code : code,

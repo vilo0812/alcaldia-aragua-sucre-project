@@ -27,6 +27,15 @@
               :value="getDepartament"
               v-model="departament_id"
             ></v-select>
+            <v-select
+              :items="statusList"
+              label="Estatus"
+              item-text="name"
+              item-value="id"
+              :rules="statusRules"
+              :value="getStatus"
+              v-model="status"
+            ></v-select>
             <v-text-field
               v-model="code"
               :counter="10"
@@ -59,8 +68,12 @@ export default {
     getDepartament() {
       return this.departament_id = this.data != null ? this.data.departament_id.id : ''
     },
+    getStatus() {
+      return this.status = this.data != null ? this.data.status : ''
+    },
     ...mapGetters({
         departaments: 'departaments',
+        user:'user'
       }),
   },
 	components: {
@@ -68,7 +81,12 @@ export default {
     },
   data () {
     return {
+      status: 0 ,
       valid: true,
+      statusList:[
+      {id:0, name:'desincorporado'},
+      {id:1, name:'incorporado'}
+      ],
       gadget: '',
       gadgetRules: [
         v => !!v || 'equipo es requerido',
@@ -82,6 +100,9 @@ export default {
       departament_id:null,
       departamentsRules:[
         v => !!v || 'departamento es requerido',
+      ],
+      statusRules:[
+        v => !!v || 'estatus es requerido',
       ],
     }
   },
@@ -99,12 +120,12 @@ export default {
       this.$refs.form.validate()
     },
     async updateOrCreateGadget() {
-      this.setOverlay(true)
       this.validate()
-      const { gadget, departament_id, code } = this
+      this.setOverlay(true)
+      const { gadget, departament_id, code, status, user } = this
       const id = this.data != null ? this.data.id : ''
       try {
-        const resp = await this.updateOrCreate({ gadget, code, departament_id,  id })
+        const resp = await this.updateOrCreate({ gadget, code, departament_id, status, user, id })
         this.$swal({
             icon: 'success',
             title: '¡Exito!',

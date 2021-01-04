@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\GadgetPDFResource;
 use App\Http\Resources\GadgetResource;
+use App\Models\GadgetLog;
 use App\Repository\Gadget\GadgetRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class GadgetsController extends Controller
 {
@@ -32,6 +35,11 @@ class GadgetsController extends Controller
             'status.required' => 'El campo status del equipo es obligatorio',
         ]);
         $gadget = $this->repository->createOrUpdateFromRequest();
+        GadgetLog::create([
+        'description' => "registro de equipo",
+        'user_id' => $request->user_id,
+        'gadget_id' => $gadget->id
+        ]);
         return response()->json(['message' => 'Equipo registrado exitosamente', 'data' => new $this->resource($gadget)], 200);
     }
     public function update(Request $request, int $id)
@@ -57,5 +65,13 @@ class GadgetsController extends Controller
     {
         $gadget = $this->repository->deleteByPrimary($id);
         return response()->json(['message' => 'Equipo eliminado correctamente'], 200);
+    }
+    public function gadgetPDF(){
+        $gadgets = $this->repository->getAll();
+        $data = GadgetPDFResource::collection($gadgets);
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->setPaper('a4', 'landscape');
+        $pdf->loadView('gadgetPDF',compact('data'));
+        return $pdf->stream();
     }
 }

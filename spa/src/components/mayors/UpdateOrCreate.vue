@@ -69,8 +69,8 @@ export default {
       this.$refs.form.validate()
     },
     async updateOrCreateMayor() {
-      this.setOverlay(true)
       this.validate()
+      this.setOverlay(true)
       const { mayor } = this
       const id = this.data != null ? this.data.id : ''
       try {

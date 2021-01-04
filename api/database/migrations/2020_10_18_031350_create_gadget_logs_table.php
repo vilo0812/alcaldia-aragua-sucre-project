@@ -16,7 +16,7 @@ class CreateGadgetLogsTable extends Migration
         Schema::create('gadget_logs', function (Blueprint $table) {
             $table->id();
             $table->text('description');
-           $table->foreignId('employee_id')
+           $table->foreignId('user_id')
                   ->nullable()
                   ->constrained()
                   ->onDelete('set null');

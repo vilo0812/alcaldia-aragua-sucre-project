@@ -9,6 +9,8 @@ use App\Repository\Gadget\GadgetRepository;
 use App\Repository\Gadget\GadgetRepositoryInterface;
 use App\Repository\Mayor\MayorRepository;
 use App\Repository\Mayor\MayorRepositoryInterface;
+use App\Repository\User\UserRepository;
+use App\Repository\User\UserRepositoryInterface;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -32,5 +34,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(MayorRepositoryInterface::class, MayorRepository::class);
         $this->app->bind(DepartamentRepositoryInterface::class, DepartamentRepository::class);
         $this->app->bind(GadgetRepositoryInterface::class, GadgetRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 }

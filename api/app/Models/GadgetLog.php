@@ -10,9 +10,8 @@ class GadgetLog extends Model
     use HasFactory;
     protected $table = 'gadget_logs';
     protected $fillable = [
-
     	'description',
-		'employee_id',
+		'user_id',
 		'gadget_id',
 
     ];

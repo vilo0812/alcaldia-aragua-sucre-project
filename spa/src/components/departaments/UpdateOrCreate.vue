@@ -87,8 +87,8 @@ export default {
       this.$refs.form.validate()
     },
     async updateOrCreateDepartament() {
-      this.setOverlay(true)
       this.validate()
+      this.setOverlay(true)
       const { departament,mayor_id } = this
       const id = this.data != null ? this.data.id : ''
       try {
