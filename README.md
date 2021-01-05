@@ -33,7 +33,7 @@
 	</p>
 	<ul>
 		<li>
-			correo: gabriel.viloria0812@gmail.com
+			correo: admin@admin.com
 		</li>
 		<li>
 			clave: 1234
