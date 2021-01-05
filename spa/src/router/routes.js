@@ -15,7 +15,7 @@ export default [
 {
     path: '/',
     name: 'home',
-    components: { default: page('home'), header: comp('core/AppBar.vue')},
+    components: { default: page('gadgets '), header: comp('core/AppBar.vue')},
     meta:{
       auth: true
     }
